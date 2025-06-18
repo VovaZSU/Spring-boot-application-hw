@@ -11,5 +11,4 @@ public interface BookService {
 
     BookDto createBook(CreateBookRequestDto requestDto);
 
-    List<BookDto> findAllByAuthor(String author);
 }

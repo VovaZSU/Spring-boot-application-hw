@@ -1,5 +1,7 @@
 package com.example.springbootapplication.repository;
 
+import com.example.springbootapplication.exception.DataProcessingException;
+import com.example.springbootapplication.exception.EntityNotFoundException;
 import com.example.springbootapplication.model.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -19,6 +21,8 @@ public class BookDaoImpl implements BookRepository {
     public List<Book> findAll() {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery("SELECT e FROM Book e", Book.class).getResultList();
+        } catch (RuntimeException e) {
+            throw new DataProcessingException("Error loading book list");
         }
     }
 
@@ -26,8 +30,9 @@ public class BookDaoImpl implements BookRepository {
     public Optional<Book> findBookById(Long id) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             Book book = entityManager.find(Book.class, id);
-            // return employee != null ? Optional.of(employee) : Optional.empty();
             return Optional.ofNullable(book);
+        } catch (RuntimeException e) {
+            throw new EntityNotFoundException("Cant find employee by id " + id);
         }
     }
 
@@ -44,19 +49,7 @@ public class BookDaoImpl implements BookRepository {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e;
-        }
-    }
-
-    @Override
-    public List<Book> findAllByAuthor(String author) {
-        String lowerCaseName = author.toLowerCase();
-        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            return entityManager
-                .createQuery("SELECT e FROM Book e WHERE lower(e.author) LIKE :author",
-                    Book.class)
-                .setParameter("author", "%" + lowerCaseName + "%")
-                .getResultList();
+            throw new DataProcessingException("Can't create book " + book);
         }
     }
 }
