@@ -32,7 +32,7 @@ public class BookDaoImpl implements BookRepository {
             Book book = entityManager.find(Book.class, id);
             return Optional.ofNullable(book);
         } catch (RuntimeException e) {
-            throw new EntityNotFoundException("Cant find employee by id " + id);
+            throw new EntityNotFoundException("Cant find book by id " + id);
         }
     }
 
