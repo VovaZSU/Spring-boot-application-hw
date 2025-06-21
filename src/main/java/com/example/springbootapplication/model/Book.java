@@ -10,7 +10,6 @@ import jakarta.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Getter
 @Setter
@@ -20,11 +19,10 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
     @Column(nullable = false)
     private String title;
     private String author;
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String isbn;
     @DecimalMin(value = "0.0")
     @Column(nullable = false)
