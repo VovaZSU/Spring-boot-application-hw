@@ -2,6 +2,7 @@ package com.example.springbootapplication.service;
 
 import com.example.springbootapplication.dto.BookDto;
 import com.example.springbootapplication.dto.CreateBookRequestDto;
+import com.example.springbootapplication.model.Book;
 import java.util.List;
 
 public interface BookService {
@@ -11,4 +12,7 @@ public interface BookService {
 
     BookDto createBook(CreateBookRequestDto requestDto);
 
+    void deleteBook(Long id);
+
+    BookDto updateBook(Long id, Book updateBook);
 }

@@ -5,10 +5,13 @@ import com.example.springbootapplication.dto.BookDto;
 import com.example.springbootapplication.dto.CreateBookRequestDto;
 import com.example.springbootapplication.model.Book;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
+
     BookDto toDto(Book book);
 
+    @Mapping(target = "id", ignore = true)
     Book toModel(CreateBookRequestDto requestDto);
 }
