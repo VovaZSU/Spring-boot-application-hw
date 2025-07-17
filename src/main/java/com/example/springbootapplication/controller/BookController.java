@@ -2,7 +2,6 @@ package com.example.springbootapplication.controller;
 
 import com.example.springbootapplication.dto.BookDto;
 import com.example.springbootapplication.dto.CreateBookRequestDto;
-import com.example.springbootapplication.model.Book;
 import com.example.springbootapplication.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +46,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    BookDto updateBook(@PathVariable Long id, @RequestBody Book book) {
-        return bookService.updateBook(id, book);
+    public BookDto updateBook(@PathVariable Long id, @RequestBody CreateBookRequestDto updateDto) {
+        return bookService.updateBook(id, updateDto);
     }
 }
