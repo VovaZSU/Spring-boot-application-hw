@@ -3,6 +3,7 @@ package com.example.springbootapplication.controller;
 import com.example.springbootapplication.dto.BookDto;
 import com.example.springbootapplication.dto.CreateBookRequestDto;
 import com.example.springbootapplication.service.BookService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    BookDto createBook(@RequestBody CreateBookRequestDto requestDto) {
+    BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) { 
         return bookService.createBook(requestDto);
     }
 
