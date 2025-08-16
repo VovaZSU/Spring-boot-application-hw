@@ -6,8 +6,8 @@ import com.example.springbootapplication.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,8 +30,8 @@ public class BookController {
 
     @Operation(summary = "Get all books with pagination and sorting")
     @GetMapping
-    List<BookDto> findAll(Pageable pageable) {
-        return bookService.findAll(pageable);
+    Page<BookDto> findAll(Pageable pageable) {
+        return (Page<BookDto>) bookService.findAll(pageable);
     }
 
     @Operation(summary = "Get book by ID")
