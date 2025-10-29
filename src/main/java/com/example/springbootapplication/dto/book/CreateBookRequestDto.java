@@ -1,4 +1,4 @@
-package com.example.springbootapplication.dto;
+package com.example.springbootapplication.dto.book;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;

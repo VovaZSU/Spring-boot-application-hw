@@ -1,7 +1,7 @@
-package com.example.springbootapplication.service;
+package com.example.springbootapplication.service.book;
 
-import com.example.springbootapplication.dto.BookDto;
-import com.example.springbootapplication.dto.CreateBookRequestDto;
+import com.example.springbootapplication.dto.book.BookDto;
+import com.example.springbootapplication.dto.book.CreateBookRequestDto;
 import com.example.springbootapplication.exception.EntityNotFoundException;
 import com.example.springbootapplication.mapper.BookMapper;
 import com.example.springbootapplication.model.Book;

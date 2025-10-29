@@ -1,8 +1,8 @@
 package com.example.springbootapplication.controller;
 
-import com.example.springbootapplication.dto.BookDto;
-import com.example.springbootapplication.dto.CreateBookRequestDto;
-import com.example.springbootapplication.service.BookService;
+import com.example.springbootapplication.dto.book.BookDto;
+import com.example.springbootapplication.dto.book.CreateBookRequestDto;
+import com.example.springbootapplication.service.book.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
