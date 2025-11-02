@@ -1,7 +1,8 @@
-package com.example.springbootapplication.security;
+package com.example.springbootapplication.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.Objects;
 import org.springframework.beans.BeanWrapperImpl;
 
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
@@ -18,9 +19,6 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         Object first = new BeanWrapperImpl(value).getPropertyValue(firstFieldName);
         Object second = new BeanWrapperImpl(value).getPropertyValue(secondFieldName);
-        if (first == null || second == null) {
-            return false;
-        }
-        return first.equals(second);
+        return Objects.equals(first, second);
     }
 }

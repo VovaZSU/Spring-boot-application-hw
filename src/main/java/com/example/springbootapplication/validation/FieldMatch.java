@@ -1,4 +1,4 @@
-package com.example.springbootapplication.security;
+package com.example.springbootapplication.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

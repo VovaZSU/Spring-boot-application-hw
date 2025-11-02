@@ -1,6 +1,6 @@
 package com.example.springbootapplication.dto.user;
 
-import com.example.springbootapplication.security.FieldMatch;
+import com.example.springbootapplication.validation.FieldMatch;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
