@@ -2,11 +2,11 @@ package com.example.springbootapplication.service.book;
 
 import com.example.springbootapplication.dto.book.BookDto;
 import com.example.springbootapplication.dto.book.CreateBookRequestDto;
-import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface BookService {
-    List<BookDto> findAll(Pageable pageable);
+    Page<BookDto> findAll(Pageable pageable);
 
     BookDto findBookById(Long id);
 
