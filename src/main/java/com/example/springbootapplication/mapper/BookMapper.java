@@ -1,8 +1,8 @@
 package com.example.springbootapplication.mapper;
 
 import com.example.springbootapplication.config.MapperConfig;
-import com.example.springbootapplication.dto.BookDto;
-import com.example.springbootapplication.dto.CreateBookRequestDto;
+import com.example.springbootapplication.dto.book.BookDto;
+import com.example.springbootapplication.dto.book.CreateBookRequestDto;
 import com.example.springbootapplication.model.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,13 +1,14 @@
-package com.example.springbootapplication.service;
+package com.example.springbootapplication.service.book;
 
-import com.example.springbootapplication.dto.BookDto;
-import com.example.springbootapplication.dto.CreateBookRequestDto;
+import com.example.springbootapplication.dto.book.BookDto;
+import com.example.springbootapplication.dto.book.CreateBookRequestDto;
 import com.example.springbootapplication.exception.EntityNotFoundException;
 import com.example.springbootapplication.mapper.BookMapper;
 import com.example.springbootapplication.model.Book;
 import com.example.springbootapplication.repository.BookRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -17,11 +18,9 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public List<BookDto> findAll() {
-        return bookRepository.findAll()
-            .stream()
-            .map(bookMapper::toDto)
-            .toList();
+    public Page<BookDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
+            .map(bookMapper::toDto);
     }
 
     @Override
