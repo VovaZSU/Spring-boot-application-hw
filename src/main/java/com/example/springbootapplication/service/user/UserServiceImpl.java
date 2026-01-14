@@ -9,11 +9,10 @@ import com.example.springbootapplication.model.RoleName;
 import com.example.springbootapplication.model.User;
 import com.example.springbootapplication.repository.RoleRepository;
 import com.example.springbootapplication.repository.UserRepository;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -34,13 +33,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto register(UserRegistrationRequestDto request)
             throws RegistrationException {
-        if(userRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RegistrationException("Email already in use: " + request.getEmail());
         }
         User user = userMapper.toModel(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new RegistrationException("Can't find role by name: " + RoleName.ROLE_USER));
+                .orElseThrow(() -> new RegistrationException("Can't find role by name: "
+                        + RoleName.ROLE_USER));
         user.setRoles(Set.of(userRole));
         User savedUser = userRepository.save(user);
         return userMapper.toUserResponse(savedUser);
