@@ -13,8 +13,10 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -24,16 +26,9 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     @Override
-    public UserResponseDto getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .map(userMapper::toUserResponse)
-                .orElseThrow(() -> new RuntimeException("Can't find user"));
-    }
-
-    @Override
     public UserResponseDto register(UserRegistrationRequestDto request)
             throws RegistrationException {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.existsByEmail(request.getEmail())) {
             throw new RegistrationException("Email already in use: " + request.getEmail());
         }
         User user = userMapper.toModel(request);
@@ -43,6 +38,6 @@ public class UserServiceImpl implements UserService {
                         + RoleName.ROLE_USER));
         user.setRoles(Set.of(userRole));
         User savedUser = userRepository.save(user);
-        return userMapper.toUserResponse(savedUser);
+        return userMapper.toUserResponse(user);
     }
 }

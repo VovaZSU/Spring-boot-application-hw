@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/books")
 @Tag(name = "Books", description = "Operations related to books")
 public class BookController {
 
