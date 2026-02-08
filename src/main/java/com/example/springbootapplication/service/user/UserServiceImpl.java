@@ -2,6 +2,7 @@ package com.example.springbootapplication.service.user;
 
 import com.example.springbootapplication.dto.user.UserRegistrationRequestDto;
 import com.example.springbootapplication.dto.user.UserResponseDto;
+import com.example.springbootapplication.exception.EntityNotFoundException;
 import com.example.springbootapplication.exception.RegistrationException;
 import com.example.springbootapplication.mapper.UserMapper;
 import com.example.springbootapplication.model.Role;
@@ -34,10 +35,10 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toModel(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new RegistrationException("Can't find role by name: "
+                .orElseThrow(() -> new EntityNotFoundException("Can't find role by name: "
                         + RoleName.ROLE_USER));
         user.setRoles(Set.of(userRole));
         User savedUser = userRepository.save(user);
-        return userMapper.toUserResponse(user);
+        return userMapper.toUserResponse(savedUser);
     }
 }
