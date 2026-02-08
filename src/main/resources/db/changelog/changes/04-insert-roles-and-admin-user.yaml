@@ -18,7 +18,7 @@ databaseChangeLog:
             columns:
               - column: { name: id, value: 1 }
               - column: { name: email, value: "admin@example.com" }
-              - column: { name: password, value: "$2a$10$769D99J7N.1Iis7.p.EtheiBv8P37mSQuD9yqJtM7yIpwZ9J8uR6u" }
+              - column: { name: password, value: "$2a$10$WbATBWF3OzKugs6Rt6uBCOhep7j7TYbW8LlMTe9HWDSsFgn93T9ya" }
               - column: { name: first_name, value: "Admin" }
               - column: { name: last_name, value: "User" }
               - column: { name: is_deleted, value: 0 }
