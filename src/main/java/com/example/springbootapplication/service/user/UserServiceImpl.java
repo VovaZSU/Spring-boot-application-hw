@@ -4,26 +4,40 @@ import com.example.springbootapplication.dto.user.UserRegistrationRequestDto;
 import com.example.springbootapplication.dto.user.UserResponseDto;
 import com.example.springbootapplication.exception.RegistrationException;
 import com.example.springbootapplication.mapper.UserMapper;
+import com.example.springbootapplication.model.Role;
+import com.example.springbootapplication.model.RoleName;
 import com.example.springbootapplication.model.User;
+import com.example.springbootapplication.repository.RoleRepository;
 import com.example.springbootapplication.repository.UserRepository;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     @Override
-    public UserResponseDto register(UserRegistrationRequestDto requestDto)
+    public UserResponseDto register(UserRegistrationRequestDto request)
             throws RegistrationException {
-        if (userRepository.existsByEmail(requestDto.getEmail())) {
-            throw new RegistrationException("Email already in use: " + requestDto.getEmail());
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RegistrationException("Email already in use: " + request.getEmail());
         }
-        User user = userMapper.toModel(requestDto);
-        userRepository.save(user);
+        User user = userMapper.toModel(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                .orElseThrow(() -> new RegistrationException("Can't find role by name: "
+                        + RoleName.ROLE_USER));
+        user.setRoles(Set.of(userRole));
+        User savedUser = userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
 }

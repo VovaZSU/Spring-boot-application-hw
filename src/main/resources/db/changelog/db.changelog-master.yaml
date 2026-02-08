@@ -5,3 +5,9 @@ databaseChangeLog:
   - include:
       file: changes/02-create-user-table.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/03-create-roles-and-junction-table.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/04-insert-roles-and-admin-user.yaml
+      relativeToChangelogFile: true
