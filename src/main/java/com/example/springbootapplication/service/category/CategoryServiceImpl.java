@@ -9,9 +9,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
@@ -32,23 +34,24 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto save(CategoryDto categoryDto) {
         Category category = categoryMapper.toModel(categoryDto);
         return categoryMapper.toDto(categoryRepository.save(category));
     }
 
     @Override
+    @Transactional
     public CategoryDto update(Long id, CategoryDto categoryDto) {
-        // Перевіряємо, чи існує категорія перед оновленням
-        if (!categoryRepository.existsById(id)) {
-            throw new EntityNotFoundException("Can't update category, id not found: " + id);
-        }
-        Category category = categoryMapper.toModel(categoryDto);
-        category.setId(id);
-        return categoryMapper.toDto(categoryRepository.save(category));
+        Category categoryFromDb = categoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Can't update category, id not found: " + id)
+        );
+        categoryMapper.updateCategoryFromDto(categoryDto, categoryFromDb);
+        return categoryMapper.toDto(categoryRepository.save(categoryFromDb));
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
     }
