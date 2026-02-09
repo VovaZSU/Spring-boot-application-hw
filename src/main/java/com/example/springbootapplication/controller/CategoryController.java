@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,8 +43,8 @@ public class CategoryController {
     @Operation(summary = "Get all categories with pagination")
     @GetMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public List<CategoryDto> getAll(Pageable pageable) {
-        return categoryService.findAll(pageable);
+    public Page<CategoryDto> getAll(Pageable pageable) {
+        return (Page<CategoryDto>) categoryService.findAll(pageable);
     }
 
     @Operation(summary = "Get category by ID")
