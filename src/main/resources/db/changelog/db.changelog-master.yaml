@@ -11,3 +11,6 @@ databaseChangeLog:
   - include:
       file: changes/04-insert-roles-and-admin-user.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/05-create-categories-and-book-category-tables.yaml
+      relativeToChangelogFile: true
