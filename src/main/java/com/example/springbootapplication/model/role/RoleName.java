@@ -1,4 +1,4 @@
-package com.example.springbootapplication.model;
+package com.example.springbootapplication.model.role;
 
 public enum RoleName {
     ROLE_USER,

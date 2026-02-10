@@ -1,7 +1,7 @@
 package com.example.springbootapplication.repository;
 
-import com.example.springbootapplication.model.Role;
-import com.example.springbootapplication.model.RoleName;
+import com.example.springbootapplication.model.role.Role;
+import com.example.springbootapplication.model.role.RoleName;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

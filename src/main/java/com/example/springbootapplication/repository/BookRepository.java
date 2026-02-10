@@ -1,6 +1,6 @@
 package com.example.springbootapplication.repository;
 
-import com.example.springbootapplication.model.Book;
+import com.example.springbootapplication.model.book.Book;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
