@@ -1,5 +1,6 @@
-package com.example.springbootapplication.model;
+package com.example.springbootapplication.model.book;
 
+import com.example.springbootapplication.model.category.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

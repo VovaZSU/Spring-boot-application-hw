@@ -1,6 +1,6 @@
 package com.example.springbootapplication.repository;
 
-import com.example.springbootapplication.model.Category;
+import com.example.springbootapplication.model.category.Category;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

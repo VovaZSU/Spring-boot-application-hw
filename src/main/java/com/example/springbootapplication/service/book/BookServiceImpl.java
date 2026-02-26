@@ -5,7 +5,7 @@ import com.example.springbootapplication.dto.book.CreateBookRequestDto;
 import com.example.springbootapplication.dto.category.BookDtoWithoutCategoryIds;
 import com.example.springbootapplication.exception.EntityNotFoundException;
 import com.example.springbootapplication.mapper.BookMapper;
-import com.example.springbootapplication.model.Book;
+import com.example.springbootapplication.model.book.Book;
 import com.example.springbootapplication.repository.BookRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

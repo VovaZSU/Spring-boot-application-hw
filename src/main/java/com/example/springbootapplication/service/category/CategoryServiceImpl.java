@@ -1,9 +1,10 @@
 package com.example.springbootapplication.service.category;
 
 import com.example.springbootapplication.dto.category.CategoryDto;
+import com.example.springbootapplication.exception.EntityAlreadyExistsException;
 import com.example.springbootapplication.exception.EntityNotFoundException;
 import com.example.springbootapplication.mapper.CategoryMapper;
-import com.example.springbootapplication.model.Category;
+import com.example.springbootapplication.model.category.Category;
 import com.example.springbootapplication.repository.CategoryRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryDto save(CategoryDto categoryDto) {
+        if (categoryRepository.findByName(categoryDto.name()).isPresent()) {
+            throw new EntityAlreadyExistsException("Category with name '"
+                    + categoryDto.name() + "' already exists.");
+        }
         Category category = categoryMapper.toModel(categoryDto);
         return categoryMapper.toDto(categoryRepository.save(category));
     }

@@ -38,10 +38,10 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/**", "/error",
                                         "/swagger-ui/**", "/v3/api-docs/**")
                                 .permitAll()
+                                .requestMatchers("/cart/**").hasRole("USER")
                                 .anyRequest()
                                 .authenticated()
                 )
-                // .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter,

@@ -1,4 +1,4 @@
-package com.example.springbootapplication.model;
+package com.example.springbootapplication.model.category;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
