@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,16 +21,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 @RequiredArgsConstructor
 @Tag(name = "Order Management", description = "Endpoints for managing orders")
 public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Place an order", description =
             "Create a new order from shopping cart items")
@@ -40,6 +43,7 @@ public class OrderController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get order history", description = "Retrieve list of previous orders")
     public List<OrderResponseDto> getHistory(Authentication authentication, Pageable pageable) {
@@ -48,6 +52,7 @@ public class OrderController {
     }
 
     @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Update status", description = "Admin can change the status of any order")
     public OrderResponseDto updateStatus(@PathVariable Long id, @RequestBody @Valid
@@ -56,15 +61,18 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}/items")
+    @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get items by order id")
-    public List<OrderItemResponseDto> getOrderItems(@PathVariable Long orderId, Pageable pageable) {
-        return orderService.findOrderItems(orderId, pageable);
+    public List<OrderItemResponseDto> getOrderItems(@PathVariable Long userId,
+                                                    Long orderId, Pageable pageable) {
+        return orderService.findOrderItems(userId, orderId, pageable);
     }
 
     @GetMapping("/{orderId}/items/{itemId}")
+    @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
-    @Operation(summary = "Отримати конкретну позицію із замовлення")
+    @Operation(summary = "Get a specific item from an order")
     public OrderItemResponseDto getOrderItem(
             @PathVariable Long orderId,
             @PathVariable Long itemId) {
