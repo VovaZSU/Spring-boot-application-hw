@@ -17,3 +17,6 @@ databaseChangeLog:
   - include:
       file: changes/06-create-shopping-carts-and-items-tables.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changes/07-create-orders-and-order-items-tables.yaml
+      relativeToChangelogFile: true
